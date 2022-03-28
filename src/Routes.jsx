@@ -11,8 +11,9 @@ class Routes extends Component {
       <div>
         <Switch>
           <Route exact path="/homepage" component={Homepage} />
-          <Route exact path="/play" component={Game} />
           <Route exact path="/scoreboard" component={Scoreboard} />
+          <Route path="/play/:id" component={Game}/>
+          <Route path="/" component={Homepage} />
         </Switch>
       </div>
     )

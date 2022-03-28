@@ -10,7 +10,7 @@ const Picture = ({ id, picture, selector, renderOverlay, correct, incorrect}) =>
     })
   return (
     <div onClick={() => selector(id)}>
-      <img className="picture" src={picture} />
+      <img className="picture" src={picture} alt="playerPicture" />
       <div className={overlayClasses}>
       </div>
     </div>
