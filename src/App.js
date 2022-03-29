@@ -5,12 +5,10 @@ import store from './store'
 
 const App = () => {
   return (
-    <div>
       <Provider store= {store}>
         <Header />
         <Routes />
       </Provider>
-    </div>
   );
 }
 

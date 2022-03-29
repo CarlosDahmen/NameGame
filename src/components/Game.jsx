@@ -69,7 +69,7 @@ export class Game extends React.Component {
     return (
       <div className="game">
         <h1>Which one of these good looking photos is the real</h1>
-        {realPerson && <h2>{realPerson.firstName + " " + realPerson.lastName}</h2>}
+        {realPerson.firstName && <h2>{realPerson.firstName + " " + realPerson.lastName}</h2>}
         <div className="game-container">
           <div className="picture-container">
             {roundPeople.length === 0 ?

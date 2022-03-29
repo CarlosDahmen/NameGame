@@ -41,11 +41,11 @@ export const fetchPeople = () => async dispatch => {
       peopleObj.headshot.url !== "https://namegame.willowtreeapps.com/images/featured-image-TEST1.png"
     )
 
-    // Add all the people in state
-    dispatch(getPeople(cleanArray));
+  // Add all the people in state
+  dispatch(getPeople(cleanArray));
 
-    // Select 6 people randomly from the people array
-   let roundPeople = [];
+  // Select 6 people randomly from the people array
+  let roundPeople = [];
     while(roundPeople.length < 6){
       let person = cleanArray[Math.floor(Math.random() * cleanArray.length)]
       if (!roundPeople.includes(person)) {
@@ -53,9 +53,9 @@ export const fetchPeople = () => async dispatch => {
       }
     }
 
-    // Add round people in state and select a real person then add it to state
-   dispatch(generateRoundPeople(roundPeople));
-   dispatch(selectRealPerson(roundPeople));
+  // Add round people in state and select a real person then add it to state
+  dispatch(generateRoundPeople(roundPeople));
+  dispatch(selectRealPerson(roundPeople));
 }
 
 //Reducer

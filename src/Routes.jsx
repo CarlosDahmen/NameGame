@@ -8,14 +8,12 @@ class Routes extends Component {
 
   render() {
     return (
-      <div>
         <Switch>
           <Route exact path="/homepage" component={Homepage} />
           <Route exact path="/scoreboard" component={Scoreboard} />
           <Route path="/play/:id" component={Game}/>
           <Route path="/" component={Homepage} />
         </Switch>
-      </div>
     )
   }
 }
