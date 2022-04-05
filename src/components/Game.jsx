@@ -4,21 +4,16 @@ import { updateScore, updateRounds } from "../store/game"
 import { fetchPeople } from "../store/people"
 import Picture from "./Picture"
 
-const Game = (props) => {
+const Game = ({ roundPeople, realPerson, fetchPeople, updateScore, score, rounds, updateRound, history }) => {
 
-  const { roundPeople, realPerson } = props;
   const [ selectedPerson, setSelectedPerson ] = useState({})
   const [ renderOverlay, setRenderOverlay ] = useState(false)
 
   useEffect(() => {
-    const { fetchPeople } = props;
     fetchPeople();
   }, []);
 
   let pictureClickHandler = (id) => {
-    // const { selectedPerson } = this.state;
-    const { roundPeople, updateScore, score, realPerson} = props;
-
     // When the user clicks on an image
     // check the id of the clicked image with the realPerson id
     // if they match, render the green overlay, else the red overlay
@@ -36,8 +31,6 @@ const Game = (props) => {
   }
 
   let continueClickHandler = () => {
-    const {rounds, updateRound, history, fetchPeople} = props;
-
     // Update rounds and fetch new people
     updateRound(rounds);
     fetchPeople();
@@ -50,10 +43,6 @@ const Game = (props) => {
       // Clear component state
       setSelectedPerson({});
       setRenderOverlay(false);
-      // this.setState({
-      //   selectedPerson: {},
-        // renderOverlay: false,
-      // });
       // and navigate to the next round with the new data
       history.push(`/play/${rounds + 1}`);
     }

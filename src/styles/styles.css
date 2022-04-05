@@ -19,7 +19,6 @@ p {
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
-  /* line-height: 32px; */
   text-align: center;
   color: #FFFFFF;
 }
@@ -36,7 +35,6 @@ button {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  /* margin-top: 40px; */
   margin-bottom: 20px;
 }
 
@@ -196,5 +194,3 @@ h2 {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-
