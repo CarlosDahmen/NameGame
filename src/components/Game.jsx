@@ -1,37 +1,27 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { updateScore, updateRounds } from "../store/game"
 import { fetchPeople } from "../store/people"
 import Picture from "./Picture"
 
-export class Game extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      selectedPerson: {},
-      renderOverlay: false,
-    }
-  }
+const Game = ({ roundPeople, realPerson, fetchPeople, updateScore, score, rounds, updateRound, history }) => {
 
-  componentDidMount(){
-    const { fetchPeople } = this.props;
+  const [ selectedPerson, setSelectedPerson ] = useState({})
+  const [ renderOverlay, setRenderOverlay ] = useState(false)
+
+  useEffect(() => {
     fetchPeople();
-}
+  }, []);
 
-  pictureClickHandler = (id) => {
-    const { selectedPerson } = this.state;
-    const { roundPeople, updateScore, score, realPerson} = this.props;
-
+  let pictureClickHandler = (id) => {
     // When the user clicks on an image
     // check the id of the clicked image with the realPerson id
     // if they match, render the green overlay, else the red overlay
     // and render a white overlay in the other images
     if (!selectedPerson.id) {
       let selected = roundPeople.find(person => id === person.id)
-      this.setState({
-        selectedPerson: selected,
-        renderOverlay: true,
-        })
+      setSelectedPerson(selected);
+      setRenderOverlay(true);
       }
 
       // If the ids match, increase the score
@@ -40,9 +30,7 @@ export class Game extends React.Component {
     }
   }
 
-  continueClickHandler = () => {
-    const {rounds, updateRound, history, fetchPeople} = this.props;
-
+  let continueClickHandler = () => {
     // Update rounds and fetch new people
     updateRound(rounds);
     fetchPeople();
@@ -53,46 +41,39 @@ export class Game extends React.Component {
     } else {
       // If not yet on the 6th round
       // Clear component state
-      this.setState({
-        selectedPerson: {},
-        renderOverlay: false,
-      });
+      setSelectedPerson({});
+      setRenderOverlay(false);
       // and navigate to the next round with the new data
       history.push(`/play/${rounds + 1}`);
     }
   }
 
-  render() {
-    const { roundPeople, realPerson } = this.props;
-    const { selectedPerson, renderOverlay } = this.state;
-
-    return (
-      <div className="game">
-        <h1>Which one of these good looking photos is the real</h1>
-        {realPerson.firstName && <h2>{realPerson.firstName + " " + realPerson.lastName}</h2>}
-        <div className="game-container">
-          <div className="picture-container">
-            {roundPeople.length === 0 ?
-              <h1>Loading</h1> :
-              roundPeople.map(person => {
-                return (
-                  <Picture
-                    key={person.id}
-                    id={person.id}
-                    picture={person.headshot.url}
-                    selector={this.pictureClickHandler}
-                    renderOverlay={renderOverlay}
-                    correct={selectedPerson.id === person.id && selectedPerson.id === realPerson.id}
-                    incorrect={selectedPerson.id === person.id && selectedPerson.id !== realPerson.id}
-                    />
-                )
-              })}
-          </div>
-          <button disabled={!this.state.selectedPerson.id} onClick={this.continueClickHandler}>Continue</button>
+  return (
+    <div className="game">
+      <h1>Which one of these good looking photos is the real</h1>
+      {realPerson.firstName && <h2>{realPerson.firstName + " " + realPerson.lastName}</h2>}
+      <div className="game-container">
+        <div className="picture-container">
+          {roundPeople.length === 0 ?
+            <h1>Loading</h1> :
+            roundPeople.map(person => {
+              return (
+                <Picture
+                  key={person.id}
+                  id={person.id}
+                  picture={person.headshot.url}
+                  selector={pictureClickHandler}
+                  renderOverlay={renderOverlay}
+                  correct={selectedPerson.id === person.id && selectedPerson.id === realPerson.id}
+                  incorrect={selectedPerson.id === person.id && selectedPerson.id !== realPerson.id}
+                  />
+              )
+            })}
         </div>
+        <button disabled={!selectedPerson.id} onClick={continueClickHandler}>Continue</button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
