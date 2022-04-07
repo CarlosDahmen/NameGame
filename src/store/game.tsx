@@ -1,5 +1,4 @@
-
-interface IInitialState {
+export interface IInitialGameState {
   round: number;
   score: number;
 }
@@ -10,7 +9,7 @@ interface actionType {
   round?: number;
 }
 
-const initialState: IInitialState = {
+const initialState: IInitialGameState = {
   round: 1,
   score: 0,
 }

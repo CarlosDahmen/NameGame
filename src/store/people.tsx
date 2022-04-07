@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Dispatch } from 'redux';
 
-interface personObj {
+export interface personObj {
   firstName: string;
   headshot: {
     alt: string;
@@ -20,9 +20,10 @@ interface personObj {
   type: string
 }
 
-interface IInitialState {
+export interface IInitialPeopleState {
   people: personObj[];
-
+  roundPeople: personObj[];
+  realPerson: personObj | null
 }
 
 interface actionType {
@@ -32,10 +33,10 @@ interface actionType {
   realPerson: personObj;
 }
 
-const initialState = {
+const initialState: IInitialPeopleState = {
   people: [],
   roundPeople: [],
-  realPerson: {},
+  realPerson: null,
 };
 
 //Action Constant
@@ -64,7 +65,7 @@ export const selectRealPerson = (roundPeople: personObj[]) => {
 }
 
 //Thunk (gets people from api)
-export const fetchPeople = () => async( dispatch: Dispatch) => {
+export const fetchPeople = () => async (dispatch: Dispatch) => {
     const { data } = await axios.get('https://namegame.willowtreeapps.com/api/v1.0/profiles');
     // Clean data by removing people objects that have no image url or have a default image
     let cleanArray = data.filter((peopleObj: personObj) =>

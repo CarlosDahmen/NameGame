@@ -1,8 +1,15 @@
 import React from "react"
 import logo from '../images/logo.png';
 import { connect } from "react-redux";
+import { History } from 'history';
+import { IInitialState } from '../store/index';
 
-const Homepage = (props) => {
+interface IProps {
+  rounds: number;
+  history: History;
+}
+
+const Homepage: React.FunctionComponent<IProps> = (props) => {
     return (
       <div className="home">
         <img className="logo" src={logo} alt='logo'/>
@@ -17,7 +24,7 @@ const Homepage = (props) => {
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: IInitialState) => {
   return {
     rounds: state.game.round
   }
