@@ -1,13 +1,18 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import peopleReducer from "./people"
+import peopleReducer, { IInitialPeopleState } from "./people"
 import thunk from "redux-thunk";
-import gameReducer from "./game";
+import gameReducer, { IInitialGameState } from "./game";
+
+export interface IInitialState {
+  game: IInitialGameState;
+  people: IInitialPeopleState;
+}
 
 let middleware = [
   thunk,
 ]
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({ people: peopleReducer, game: gameReducer });
 

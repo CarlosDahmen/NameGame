@@ -1,6 +1,15 @@
-import axios from 'axios'
+export interface IInitialGameState {
+  round: number;
+  score: number;
+}
 
-const initialState = {
+interface actionType {
+  type: string;
+  score?: number;
+  round?: number;
+}
+
+const initialState: IInitialGameState = {
   round: 1,
   score: 0,
 }
@@ -12,17 +21,17 @@ const RESET_GAME = 'RESET_GAME';
 
 
 //Action Creators
-export const updateScore = score => ({
+export const updateScore = (score: number): actionType => ({
   type: UPDATE_SCORE,
   score
 })
 
-export const updateRounds = round => ({
+export const updateRounds = (round: number): actionType => ({
   type: UPDATE_ROUNDS,
   round: round + 1
 })
 
-export const resetGame = () => ({
+export const resetGame = (): actionType => ({
   type: RESET_GAME,
   round: 1,
   score: 0
@@ -31,8 +40,7 @@ export const resetGame = () => ({
 
 
 //Reducer
-const gameReducer = (state = initialState, action) => {
-  console.log(action)
+const gameReducer = (state = initialState, action: actionType) => {
   switch(action.type) {
     case UPDATE_SCORE:
       return {...state, score: action.score };

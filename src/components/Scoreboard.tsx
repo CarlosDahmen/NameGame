@@ -3,8 +3,17 @@ import { resetGame } from "../store/game";
 import triangle from '../images/triangle.png';
 import square from '../images/square.png';
 import star from '../images/star.png';
+import { History } from 'history';
+import { IInitialState } from '../store/index';
+import { Dispatch } from 'redux';
 
-const Scoreboard = (props) => (
+interface IProps {
+  score: number;
+  history: History;
+  resetGame: () => void;
+}
+
+const Scoreboard: React.FunctionComponent<IProps> = (props) => (
   <div className="game">
     <div className="score">
       <img className="logo" src={square} alt='square'/>
@@ -40,13 +49,13 @@ const Scoreboard = (props) => (
   </div>
 )
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: IInitialState) => {
   return {
     score: state.game.score,
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     resetGame: () => dispatch(resetGame())
   }
