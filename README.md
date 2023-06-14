@@ -9,6 +9,8 @@ The app leverages an existing API that serves an array of peoples’ profiles. (
 On each round, the app randomly selects 6 people profiles, displays their pictures and the name of one of them, and asks you to match the name to the correct picture. After five rounds it returns the number of correct guesses.
 
 ## Technologies: 
+
+Typescript
 React v17.0.2
 React Router
 Redux v4.1.2
